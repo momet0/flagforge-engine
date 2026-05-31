@@ -28,6 +28,7 @@ src/
     ├── projects.controller.ts
     ├── projects.module.ts
     └── projects.service.ts
+
 🏃‍♂️ Requisitos Previos
 Asegúrate de tener instalado:
 
@@ -63,14 +64,5 @@ GET /projects - Obtiene el listado de todos los proyectos.
 
 GET /projects/:id - Obtiene el detalle de un proyecto específico por su UUID.
 
-
 ---
-
-### 💾 Sube los cambios a GitHub
-
-Una vez que guardes el archivo, aprovecha para hacer tu commit y mantener el perfil activo con este comando en tu terminal:
-
-```bash
-git add README.md
-git commit -m "docs: actualizar README con la estructura real del proyecto"
-git push origin main
+```
