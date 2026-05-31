@@ -1,8 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ProjectsService } from './projects.service';
 import { ProjectsController } from './projects.controller';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Project } from './entities/project.entity';
 
 @Module({
+  imports: [
+    // Esto le dice a NestJS: "Este módulo va a usar el repositorio de la entidad Project"
+    TypeOrmModule.forFeature([Project])
+  ],
   controllers: [ProjectsController],
   providers: [ProjectsService],
 })
