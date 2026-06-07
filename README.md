@@ -48,16 +48,16 @@ src/
 ## 🔧 Configuración del Entorno de Desarrollo
 
 1. Clonar el repositorio:  
-    git clone https://github.com/momet0/flagforge-engine 
+    git clone https://github.com/momet0/flagforge-engine. 
     cd flagforge-engine
     
-2. Instalar dependencias de Node.js:  
+3. Instalar dependencias de Node.js:  
     npm install
     
-3. Levantar PostgreSQL con Docker:  
+4. Levantar PostgreSQL con Docker:  
     docker compose up -d
     
-4. Iniciar el servidor en modo desarrollo (Hot-Reload):  
+5. Iniciar el servidor en modo desarrollo (Hot-Reload):  
     npm run start:dev  
     La API estará escuchando peticiones en: http://localhost:3000
     
