@@ -1,76 +1,77 @@
-# SaaS Project Management API 🚀
+# FlagForge Engine 🚀
 
-Una API de nivel profesional para una plataforma SaaS de gestión de proyectos (estilo Trello/Asana), desarrollada con **NestJS**, **TypeScript** y **PostgreSQL**.
+Un motor de Feature Flags (Banderas de Funcionalidad) y Configuración Remota de alto rendimiento y arquitectura multi-tenant, desarrollado con NestJS, TypeScript y PostgreSQL.
 
-Este proyecto está diseñado siguiendo principios de arquitectura limpia, modularidad estricta e inyección de dependencias, sirviendo como un paralelo de alta robustez a los estándares de desarrollo en Spring Boot.
+Inspirado en plataformas de nivel empresarial como LaunchDarkly y Unleash, este sistema permite a aplicaciones externas activar o desactivar características en producción en tiempo real, segmentar configuraciones por entornos y gestionar cambios críticos de software sin necesidad de realizar nuevos despliegues (re-deploys).
 
-## 🛠️ Tecnologías y Ecosistema
+## 🏗️ Desafíos Técnicos y Arquitectura
 
-* **Framework:** [NestJS](https://nestjs.com/) (v11+) con Express v5.
-* **Lenguaje:** TypeScript (Tipado estricto y asincronía nativa).
-* **Base de Datos:** PostgreSQL (Ejecutado localmente mediante Docker).
-* **ORM:** [TypeORM](https://typeorm.io/) (Data Mapper pattern, equivalente a JPA/Hibernate).
-* **Validación:** Class-Validator & Pipes (Validación de DTOs en tiempo de ejecución).
+Este proyecto está diseñado para demostrar dominio en patrones avanzados de backend modernos, sirviendo como un paralelo de alta robustez a los estándares de desarrollo en Spring Boot (Spring Cloud Config / Spring Security):
 
----
+- Jerarquía Multi-Tenant: Estructura relacional estricta donde un Proyecto gestiona múltiples Entornos (Dev, Staging, Prod), y cada uno de ellos aísla sus propias configuraciones mediante llaves de API únicas.
+    
+- Persistencia Robusta: Modelado relacional con TypeORM utilizando el patrón Data Mapper (equivalente a JPA/Hibernate) sobre PostgreSQL.
+    
+- Validación en Tiempo de Ejecución: Pipas globales de NestJS (ValidationPipe) integradas con class-validator para asegurar un tipado estricto de DTOs antes de tocar la capa de servicios.
+    
 
-## 🚀 Arquitectura del Proyecto
+src/  
+├── app.module.ts            # Módulo raíz (Spring Application Context)  
+├── main.ts                  # Configuración global del servidor y bootstrap  
+├── projects/                # Módulo raíz de aplicaciones cliente  
+│   ├── dto/                 # Data Transfer Objects de proyectos  
+│   ├── entities/            # Entidad Project (Tabla principal)  
+│   ├── projects.controller.ts  
+│   ├── projects.module.ts  
+│   └── projects.service.ts  
+└── environments/            # Módulo de entornos y segregación de datos  
+    ├── dto/                 # Data Transfer Objects de entornos  
+    ├── entities/            # Entidad Environment (Relación ManyToOne con Project)  
+    ├── environments.controller.ts  
+    ├── environments.module.ts  
+    └── environments.service.ts  
+  
 
-A diferencia de la estructura tradicional por capas globales, este backend utiliza una **Arquitectura Modular**. Cada recurso (ej. `Projects`) encapsula sus propios Controladores, Servicios, Entidades y DTOs, promoviendo un bajo acoplamiento.
+## 🛠️ Stack Tecnológico
 
-```text
-src/
-├── app.module.ts         # Módulo raíz (Spring Boot Application Context)
-├── main.ts               # Punto de entrada y configuración global
-└── projects/             # Módulo Funcional de Proyectos
-    ├── dto/              # Data Transfer Objects (Validación de Request Body)
-    ├── entities/         # Entidades de TypeORM (Mapeo de Tablas)
-    ├── projects.controller.ts
-    ├── projects.module.ts
-    └── projects.service.ts
-🏃‍♂️ Requisitos Previos
-Asegúrate de tener instalado:
+- Framework: NestJS (v11+) con Express v5.
+    
+- Lenguaje: TypeScript (Tipado estricto y asincronía nativa).
+    
+- Base de Datos: PostgreSQL (Instancia local contenerizada).
+    
+- ORM: TypeORM.
+    
+- Contenedores: Docker & Docker Compose.
+    
 
-Node.js (v18 o superior)
+## 🔧 Configuración del Entorno de Desarrollo
 
-Docker y Docker Compose
+1. Clonar el repositorio:  
+    git clone https://github.com/momet0/flagforge-engine. 
+    cd flagforge-engine
+    
+3. Instalar dependencias de Node.js:  
+    npm install
+    
+4. Levantar PostgreSQL con Docker:  
+    docker compose up -d
+    
+5. Iniciar el servidor en modo desarrollo (Hot-Reload):  
+    npm run start:dev  
+    La API estará escuchando peticiones en: http://localhost:3000
+    
 
-🔧 Configuración e Instalación
-Clonar el repositorio:
+## 🛣️ Endpoints Base Actuales
 
-Bash
-git clone <url-de-tu-repositorio>
-cd saas-project
-Instalar dependencias:
+### 📁 Proyectos (/projects)
 
-Bash
-npm install
-Levantar la Base de Datos (PostgreSQL):
-
-Bash
-docker compose up -d
-Iniciar el servidor en modo desarrollo:
-
-Bash
-npm run start:dev
-El servidor estará disponible en: http://localhost:3000
-
-🛣️ Endpoints Disponibles (Hasta el momento)
-Proyectos (/projects)
-POST /projects - Crea un nuevo proyecto. (Requiere name en el Body).
-
-GET /projects - Obtiene el listado de todos los proyectos.
-
-GET /projects/:id - Obtiene el detalle de un proyecto específico por su UUID.
-
-
----
-
-### 💾 Sube los cambios a GitHub
-
-Una vez que guardes el archivo, aprovecha para hacer tu commit y mantener el perfil activo con este comando en tu terminal:
-
-```bash
-git add README.md
-git commit -m "docs: actualizar README con la estructura real del proyecto"
-git push origin main
+- POST /projects - Registra una nueva aplicación o microservicio en la plataforma.
+    
+- GET /projects - Lista todos los proyectos.
+    
+- GET /projects/:id - Obtiene el detalle de un proyecto por UUID.
+    
+- PATCH /projects/:id - Modifica metadatos del proyecto.
+    
+- DELETE /projects/:id - Elimina el proyecto y sus entornos asociados en cascada.
