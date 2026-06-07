@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
+import { Environment } from '../../environments/entities/environment.entity';
 
 @Entity('projects') // @Table(name = "projects")
 export class Project {
@@ -16,4 +17,7 @@ export class Project {
 
   @CreateDateColumn() // Gestionado automáticamente por el ORM
   createdAt: Date;
+
+  @OneToMany(() => Environment, (environment) => environment.project)
+  environments: Environment[];
 }
