@@ -48,7 +48,7 @@ src/
 ## 🔧 Configuración del Entorno de Desarrollo
 
 1. Clonar el repositorio:  
-    git clone [<url-de-tu-repositorio-de-github>](https://github.com/momet0/flagforge-engine)  
+    git clone https://github.com/momet0/flagforge-engine 
     cd flagforge-engine
     
 2. Instalar dependencias de Node.js:  
